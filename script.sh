@@ -30,7 +30,7 @@ sudo dpkg -i minikube_latest_amd64.deb
 minikube start --driver=docker
 
 #5 Installing Kubectl
-sudo apt install -y kubectl
+sudo snap install -y kubectl
 
 #6 Create Deployment, And Exposing it to a Server, Tunnel it through minicube
 kubectl create deployment simpleapp --image=$DOCKER_REPO --replicas=3
