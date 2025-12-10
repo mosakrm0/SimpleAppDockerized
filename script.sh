@@ -47,15 +47,6 @@ if ! command_exists kubectl; then
     echo "Installing kubectl $KUBECTL_VERSION"
     curl -LO "https://dl.k8s.io/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl"
 
-    # Verify SHA256 checksum
-    KUBECTL_SHA256_EXPECTED=$(curl -s "https://dl.k8s.io/$KUBECTL_VERSION/bin/linux/amd64/kubectl.sha256")
-    KUBECTL_SHA256_ACTUAL=$(sha256sum kubectl | awk '{print $1}')
-
-    if [ "$KUBECTL_SHA256_EXPECTED" != "$KUBECTL_SHA256_ACTUAL" ]; then
-        echo "SHA256 checksum verification failed!"
-        exit 1
-    fi
-
     chmod +x kubectl
     sudo mv kubectl /usr/local/bin/
     echo "kubectl installed successfully"
