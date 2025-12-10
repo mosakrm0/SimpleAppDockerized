@@ -39,6 +39,7 @@ else
     echo "Minikube already installed"
 fi
 
+sudo usermod -aG docker $USER && newgrp docker
 minikube start --driver=docker
 
 #5 Installing kubectl manually
