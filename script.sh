@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt update -y;sudo apt upgrade -y
+
 GHCR_REPO="ghcr.io/mosakrm0/simpleapp" 
 IMAGE_NAME="simpleapp"
 
