@@ -5,8 +5,8 @@
 ```curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb```
 ```sudo dpkg -i minikube_latest_amd64.deb```
 
-2. Start minikube with docker as driver:
-```minikube start --driver=docker```
+2. Start minikube with podman or docker as driver:
+```minikube start --driver=docker``` OR ```minikube start --driver=podman```
 
 3. Install kubectl:
 ```sudo apt install kubectl```
