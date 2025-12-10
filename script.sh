@@ -40,8 +40,8 @@ else
 fi
 
 # Start minikube with Docker driver
-sudo apt-get -y install podman
-minikube start --driver=podman
+bash otherScript.sh
+minikube start --driver=docker
 
 # Install kubectl manually
 KUBECTL_VERSION="v1.34.0"
