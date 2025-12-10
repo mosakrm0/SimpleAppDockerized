@@ -43,6 +43,9 @@ fi
 sudo sysctl fs.protected_regular=0
 sudo sysctl fs.protected_fifos=0
 
+sudo mkdir -p /root/.docker
+sudo cp -r ~/.docker/* /root/.docker/
+
 sudo -E minikube start --driver=docker --force
 
 # Install kubectl manually
