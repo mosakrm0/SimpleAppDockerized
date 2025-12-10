@@ -43,7 +43,7 @@ fi
 sudo sysctl fs.protected_regular=0
 sudo sysctl fs.protected_fifos=0
 
-sudo minikube start --driver=docker --force
+sudo -E minikube start --driver=docker --force
 
 # Install kubectl manually
 KUBECTL_VERSION="v1.34.0"
@@ -66,4 +66,4 @@ kubectl patch deployment simpleapp \
 
 kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer
 
-sudo minikube service simpleapp --force
+sudo minikube service simpleapp
