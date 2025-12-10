@@ -39,14 +39,10 @@ else
     echo "Minikube already installed"
 fi
 
-# Start minikube with Docker driver
-sudo sysctl fs.protected_regular=0
-sudo sysctl fs.protected_fifos=0
+# Start minikube with podman driver
+sudo apt-get -y install podman
 
-sudo mkdir -p /root/.docker
-sudo cp -r ~/.docker/* /root/.docker/
-
-sudo -E minikube start --driver=docker --force
+minikube start --driver=podman
 
 # Install kubectl manually
 KUBECTL_VERSION="v1.34.0"
@@ -69,4 +65,4 @@ kubectl patch deployment simpleapp \
 
 kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer
 
-sudo minikube service simpleapp
+ minikube service simpleapp
