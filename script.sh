@@ -40,8 +40,7 @@ else
 fi
 
 # Start minikube with Docker driver
-bash otherScript.sh
-minikube start --driver=docker
+sudo minikube start --driver=docker
 
 # Install kubectl manually
 KUBECTL_VERSION="v1.34.0"
@@ -64,4 +63,4 @@ kubectl patch deployment simpleapp \
 
 kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer
 
-minikube service simpleapp
+sudo minikube service simpleapp
