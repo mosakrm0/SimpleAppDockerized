@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOCKER_REPO="mosakrmov01/simpleapp"   # CHANGE THIS
+GHCR_REPO="ghcr.io/mosakrm0/simpleapp" 
 IMAGE_NAME="simpleapp"
 
 # Function to check command existence
@@ -16,20 +16,6 @@ else
     echo "Curl already installed"
 fi
 
-# Install Docker
-if ! command_exists docker; then
-    curl -fsSL https://get.docker.com -o get-docker.sh
-    sudo sh get-docker.sh
-else
-    echo "Docker already installed"
-fi
-
-# Build Docker Image and push
-sudo docker build -t $IMAGE_NAME .
-
-sudo docker tag $IMAGE_NAME $DOCKER_REPO
-
-sudo docker push $DOCKER_REPO
 
 # Install minikube
 if ! command_exists minikube; then
@@ -58,10 +44,7 @@ else
 fi
 
 # Create Deployment and Service
-kubectl create deployment simpleapp --image=$DOCKER_REPO --replicas=3
-kubectl patch deployment simpleapp \
-  -p '{"spec":{"template":{"spec":{"containers":[{"name":"simpleapp","imagePullPolicy":"Never"}]}}}}'
-
+kubectl create deployment simpleapp --image=$GHCR_REPO --replicas=3
 
 kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer
 
