@@ -16,22 +16,22 @@ else
     echo "Curl already installed"
 fi
 
-#2 Installing Docker
+# Install Docker
 if ! command_exists docker; then
     curl -fsSL https://get.docker.com -o get-docker.sh
-    sh get-docker.sh
+    sudo sh get-docker.sh
 else
     echo "Docker already installed"
 fi
 
-#3 Building Docker Image and pushing
-docker build -t $IMAGE_NAME .
+# Build Docker Image and push
+sudo docker build -t $IMAGE_NAME .
 
-docker tag $IMAGE_NAME $DOCKER_REPO
+sudo docker tag $IMAGE_NAME $DOCKER_REPO
 
-docker push $DOCKER_REPO
+sudo docker push $DOCKER_REPO
 
-#4 Installing minikube
+# Install minikube
 if ! command_exists minikube; then
     curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
     sudo dpkg -i minikube_latest_amd64.deb
@@ -39,10 +39,10 @@ else
     echo "Minikube already installed"
 fi
 
-sudo usermod -aG docker $USER && newgrp docker
+# Start minikube with Docker driver
 minikube start --driver=docker
 
-#5 Installing kubectl manually
+# Install kubectl manually
 KUBECTL_VERSION="v1.34.0"
 if ! command_exists kubectl; then
     echo "Installing kubectl $KUBECTL_VERSION"
@@ -55,9 +55,9 @@ else
     echo "Kubectl already installed"
 fi
 
-#6 Create Deployment and Service
-kubectl create deployment simpleapp --image=$DOCKER_REPO --replicas=3
+# Create Deployment and Service
+sudo kubectl create deployment simpleapp --image=$DOCKER_REPO --replicas=3
 
-kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer
+sudo kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer
 
-minikube service simpleapp
+sudo minikube service simpleapp
