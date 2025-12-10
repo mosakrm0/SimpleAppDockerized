@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOCKER_REPO="mosakrm01/simpleapp"   # CHANGE THIS
+DOCKER_REPO="mosakrmov01/simpleapp"   # CHANGE THIS
 IMAGE_NAME="simpleapp"
 
 # Function to check command existence
