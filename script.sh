@@ -2,7 +2,6 @@
 
 sudo apt update -y;sudo apt upgrade -y
 
-GHCR_REPO="ghcr.io/mosakrm0/simpleapp" 
 IMAGE_NAME="simpleapp"
 
 # Function to check command existence
@@ -29,8 +28,16 @@ fi
 
 # Start minikube with podman driver
 sudo apt-get -y install podman
+podman build -t simpleapp .
+
+
+
+# Now deploy using image name only (no registry)
+kubectl create deployment simpleapp --image=simpleapp --replicas=
 minikube config set rootless true
 minikube start --driver=podman
+eval $(minikube podman-env)
+podman build -t simpleapp .
 
 # Install kubectl manually
 KUBECTL_VERSION="v1.34.0"
