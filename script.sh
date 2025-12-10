@@ -56,7 +56,10 @@ else
 fi
 
 # Create Deployment and Service
-kubectl create deployment simpleapp --image=$DOCKER_REPO --replicas=3
+kubectl create deployment simpleapp \
+  --image=$DOCKER_REPO \
+  --replicas=3 \
+  --image-pull-policy=Never
 
 kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer
 
