@@ -40,6 +40,7 @@ else
 fi
 
 # Start minikube with Docker driver
+sudo sysctl fs.protected_regular=0
 sudo minikube start --driver=docker --force
 
 # Install kubectl manually
