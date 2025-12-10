@@ -12,7 +12,7 @@
 ```sudo apt install kubectl```
 
 4. Create a Deployment using the image you just pushed and with 3 replicas
-```kubectl create deployment simpleapp --image=simpleapp --replicas=3```
+```kubectl create deployment simpleapp --image=ghcr.io/mosakrm0/simpleapp --replicas=3```
 
 5. Check what you have done
 ```kubectl get all```
