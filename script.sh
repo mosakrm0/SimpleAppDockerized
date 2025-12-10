@@ -40,8 +40,8 @@ else
 fi
 
 # Start minikube with Docker driver
-sudo usermod -aG docker $USER && newgrp docker
-minikube start --driver=docker
+sudo apt-get -y install podman
+minikube start --driver=podman
 
 # Install kubectl manually
 KUBECTL_VERSION="v1.34.0"
