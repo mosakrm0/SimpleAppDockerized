@@ -51,4 +51,6 @@ kubectl create deployment simpleapp --image=$GHCR_REPO --replicas=3
 
 kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer
 
+sleep 10
+
  minikube service simpleapp
