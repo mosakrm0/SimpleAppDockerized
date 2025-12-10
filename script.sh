@@ -41,7 +41,7 @@ fi
 
 # Start minikube with podman driver
 sudo apt-get -y install podman
-
+minikube config set rootless true
 minikube start --driver=podman
 
 # Install kubectl manually
