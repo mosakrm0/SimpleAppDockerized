@@ -2,8 +2,6 @@
 
 sudo apt update -y;sudo apt upgrade -y
 
-IMAGE_NAME="simpleapp"
-
 # Function to check command existence
 command_exists() {
     command -v "$1" >/dev/null 2>&1
@@ -53,7 +51,7 @@ else
 fi
 
 # Create Deployment and Service
-kubectl create deployment simpleapp --image=$GHCR_REPO --replicas=3
+kubectl create deployment simpleapp --image=simpleapp --replicas=3
 
 kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer
 
