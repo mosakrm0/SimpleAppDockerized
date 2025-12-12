@@ -1,0 +1,46 @@
+name: simpleapp
+on: push
+
+jobs:
+  Checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update and upgrade
+        run: |
+          sudo apt update -y
+          sudo apt upgrade -y
+
+      - name: Install curl
+        run: sudo apt install -y curl
+
+      - name: Install minikube
+        run: |
+            curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+            sudo dpkg -i minikube_latest_amd64.deb
+
+      - name: Start minikube with podman driver
+        run: |
+            sudo apt-get -y install podman
+            minikube config set rootless true
+            minikube start --driver=podman
+  Kubectl:
+    runs-on: ubuntu-latest
+    needs: Checks
+    steps:
+      - name: Update and upgrade
+        run: |
+            curl -LO "https://dl.k8s.io/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl"
+            chmod +x kubectl
+            sudo mv kubectl /usr/local/bin/
+
+      - name: Create Deployment
+        run: kubectl create deployment simpleapp --image=ghcr.io/mosakrm0/simpleapp --replicas=3
+
+      - name: Expose deployment
+        run: kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer
+
+      - name: Sleep
+        run: sleep 10
+            
+      - name: Start minikube Service
+        run:  minikube service simpleapp
