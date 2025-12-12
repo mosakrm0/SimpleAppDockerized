@@ -3,7 +3,7 @@ on: push
 
 jobs:
   Checks:
-    runs-on: ubuntu-latest
+    runs-on: alpine
     steps:
       - name: Update and upgrade
         run: |
@@ -24,7 +24,7 @@ jobs:
             minikube config set rootless true
             minikube start --driver=podman
   Kubectl:
-    runs-on: ubuntu-latest
+    runs-on: alpine
     needs: Checks
     steps:
       - name: Update and upgrade
