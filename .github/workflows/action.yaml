@@ -1,6 +1,6 @@
 name: simpleapp
 
-on: [workflow_dispatch]
+on: [push]
 
 jobs:
   deploy-and-test:
@@ -38,4 +38,5 @@ jobs:
         run: |
           sleep 10
           kubectl get all
+
 
