@@ -3,16 +3,19 @@ on: push
 
 jobs:
   Checks:
-    runs-on: alpine
+    runs-on: ubuntu-18.04
     steps:
       - name: Update and upgrade
         run: |
           sudo apt update -y
-          sudo apt upgrade -y
 
       - name: Install curl
         run: sudo apt install -y curl
 
+  minikube:
+    needs: Checks
+    runs-on: ubuntu-18.04
+    steps:
       - name: Install minikube
         run: |
             curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
@@ -23,9 +26,10 @@ jobs:
             sudo apt-get -y install podman
             minikube config set rootless true
             minikube start --driver=podman
+  
   Kubectl:
-    runs-on: alpine
-    needs: Checks
+    runs-on: ubuntu-18.04
+    needs: minikube
     steps:
       - name: Update and upgrade
         run: |
@@ -41,6 +45,10 @@ jobs:
 
       - name: Sleep
         run: sleep 10
-            
+
+  serviceStart:
+    runs-on: ubuntu-18.04
+    needs: Kubectl
+    steps:
       - name: Start minikube Service
         run:  minikube service simpleapp
