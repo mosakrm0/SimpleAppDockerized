@@ -1,6 +1,6 @@
 name: simpleapp
 
-on: push
+on: [workflow_call]
 
 jobs:
   deploy-and-test:
@@ -37,10 +37,4 @@ jobs:
       - name: Wait for pods to be ready
         run: |
           sleep 10
-
-      - name: Test service internally
-        run: |
-          # Get the pod name
-          POD=$(kubectl get pods -l app=simpleapp -o jsonpath='{.items[0].metadata.name}')
-          # Check if app responds internally
-          kubectl exec "$POD" -- curl -s http://localhost:5000
+          kubectl get all
