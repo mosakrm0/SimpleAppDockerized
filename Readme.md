@@ -1,3 +1,5 @@
+[![simpleapp](https://github.com/mosakrm0/SimpleAppDockerized/actions/workflows/action.yaml/badge.svg)](https://github.com/mosakrm0/SimpleAppDockerized/actions/workflows/action.yaml)
+
 ## You Can Just Run Script.sh and will do everything for you ##
 
 
