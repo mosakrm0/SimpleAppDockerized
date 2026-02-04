@@ -1,4 +1,4 @@
-name: Slack
+name: SlackNot
 
 on:
   push:
