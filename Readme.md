@@ -1,27 +1,50 @@
-[![simpleapp](https://github.com/mosakrm0/SimpleAppDockerized/actions/workflows/action.yaml/badge.svg)](https://github.com/mosakrm0/SimpleAppDockerized/actions/workflows/action.yaml)
+# GitHub Actions Task
 
-## You Can Just Run Script.sh and will do everything for you ##
+## 1. Build a Workflow that builds container image and pushes it to private dokcer registry
+### 1. Add credentials
+Get your Dockerhub username and password and put it in Repository variables.
 
+### 2. Building the Workflow
+```
+name: Docker Image CI
 
-1. Install minikube using this script:
-```curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb```
-```sudo dpkg -i minikube_latest_amd64.deb```
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-2. Start minikube with podman or docker as driver:
-```minikube start --driver=docker``` OR ```minikube start --driver=podman```
+jobs:
 
-3. Install kubectl:
-```sudo apt install kubectl```
+  build:
 
-4. Create a Deployment using the image you just pushed and with 3 replicas
-```kubectl create deployment simpleapp --image=ghcr.io/mosakrm0/simpleapp --replicas=3```
+    runs-on: ubuntu-latest
 
-5. Check what you have done
-```kubectl get all```
+    steps:
+    - uses: actions/checkout@v4
 
-6. Create a service
-```kubectl expose deployment simpleapp --port=80 --target-port=5000 --type=LoadBalancer```
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ vars.DOCKERUSER }}
+        password: ${{ secrets.DOCKERHUBT }}
 
-7. Tunnel it using minikube
-```minikube service simpleapp```
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        push: true
+        tags: mosakrmoov/mosakrmoov
+
+            
+    - name: Push to Docker
+      run: docker push mosakrmoov/mosakrmoov
+```
+
+## 2. Turn On Slack Notifications for Workflow
+### 1. Inside Slack, Get The Endid App
+### 2. Configure it with your github account and the repositroy you want it to check
+### 3. Cofigure it with the channel you wann get notify at
+### 4. Start a workflow and test it
+
+![image](https://github.com/user-attachments/assets/1ed7ad1c-8d5b-459c-a8b4-0fe84279174e)
 
